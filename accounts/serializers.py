@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Invitation
+from .models import Invitation, User
 
 User = get_user_model()
 
@@ -28,3 +28,21 @@ class AcceptInvitationSerializer(serializers.Serializer):
         )
         invitation.delete()  # Видаляємо використане запрошення
         return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'first_name', 'last_name', 'role']
+
+class InviteSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+    role = serializers.ChoiceField(choices=User.ROLE_CHOICES)
+
+    class Meta:
+        model = Invitation
+        fields = ['email', 'role']
+
+    def validate(self, data):
+        if User.objects.filter(email=data['email']).exists():
+            raise serializers.ValidationError("This email is already registered.")
+        return data
