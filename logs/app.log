@@ -1,1 +1,4 @@
 WARNING 2025-03-24 15:08:20,271 views Permission denied for test@example.com (role: photographer)
+ERROR 2025-03-24 20:38:40,866 views Failed to send email to test5@example.com: name 'send_mail' is not defined
+INFO 2025-03-24 20:54:47,956 views Invitation email sent to test5@example.com by owner2@example.com
+INFO 2025-03-24 21:00:09,134 views Invitation email sent to test5@example.com by owner2@example.com

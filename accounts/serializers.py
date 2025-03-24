@@ -50,4 +50,6 @@ class InviteSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if User.objects.filter(email=data['email']).exists():
             raise serializers.ValidationError("This email is already registered.")
+        # Видаляємо старе запрошення, якщо воно існує
+        Invitation.objects.filter(email=data['email']).delete()
         return data
