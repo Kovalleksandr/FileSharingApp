@@ -3,6 +3,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from accounts.models import User
 from filesharing.models import Collection
+import logging
+
+# Налаштування логера
+logger = logging.getLogger(__name__)
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
@@ -16,10 +20,12 @@ class Project(models.Model):
 @receiver(post_save, sender=Project)
 def create_project_collection(sender, instance, created, **kwargs):
     if created:
+        logger.info(f"Creating collection for project '{instance.name}' (id={instance.id}) with owner_id={instance.owner_id}")
         collection = Collection.objects.create(
             name=f"{instance.name} - Project Folder",
             owner=instance.owner,
             project=instance
         )
         instance.client_link = f"http://localhost:8000/api/filesharing/collections/{collection.id}/client/"
-        instance.save(update_fields=['client_link'])  # Оновлюємо лише client_link
+        instance.save(update_fields=['client_link'])
+        logger.info(f"Project '{instance.name}' (id={instance.id}) updated with client_link: {instance.client_link}")

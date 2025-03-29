@@ -165,6 +165,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+        'crm.models': {  # Додаємо логер для crm.models
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
     },
 }
 

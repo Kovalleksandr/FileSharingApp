@@ -3,3 +3,5 @@ ERROR 2025-03-24 20:38:40,866 views Failed to send email to test5@example.com: n
 INFO 2025-03-24 20:54:47,956 views Invitation email sent to test5@example.com by owner2@example.com
 INFO 2025-03-24 21:00:09,134 views Invitation email sent to test5@example.com by owner2@example.com
 INFO 2025-03-24 21:12:42,096 views Invitation email sent to test5@example.com by owner2@example.com
+INFO 2025-03-29 20:58:49,153 models Creating collection for project 'Test Project 3' (id=3) with owner_id=5
+INFO 2025-03-29 20:58:49,153 models Project 'Test Project 3' (id=3) updated with client_link: http://localhost:8000/api/filesharing/collections/3/client/
