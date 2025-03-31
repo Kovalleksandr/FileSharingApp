@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from django.db import models  # Переконайся, що це є
 from .models import Project, Stage
 from .serializers import ProjectSerializer, StageSerializer
 
@@ -54,3 +55,20 @@ class StageUpdateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class StageDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, stage_id):
+        try:
+            stage = Stage.objects.get(id=stage_id)
+        except Stage.DoesNotExist:
+            return Response({"error": "Stage not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        if stage.project.owner != request.user:
+            return Response({"error": "Only project owner can delete stages"}, status=status.HTTP_403_FORBIDDEN)
+        
+        # Зсуваємо наступні етапи вниз
+        Stage.objects.filter(project=stage.project, order__gt=stage.order).update(order=models.F('order') - 1)
+        stage.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
