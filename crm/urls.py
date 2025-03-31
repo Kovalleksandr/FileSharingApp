@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import ProjectCreateView
+from .views import ProjectCreateView, StageCreateView, StageUpdateView
 
 urlpatterns = [
     path('projects/', ProjectCreateView.as_view(), name='project-create'),
+    path('stages/', StageCreateView.as_view(), name='stage-create'),
+    path('stages/<int:stage_id>/', StageUpdateView.as_view(), name='stage-update'),
 ]

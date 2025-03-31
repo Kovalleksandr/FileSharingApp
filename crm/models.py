@@ -5,7 +5,6 @@ from accounts.models import User
 from filesharing.models import Collection
 import logging
 
-# Налаштування логера
 logger = logging.getLogger(__name__)
 
 class Project(models.Model):
@@ -16,6 +15,19 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+class Stage(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='stages')
+    name = models.CharField(max_length=255)
+    order = models.PositiveIntegerField(default=0)  # Порядок етапу
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_stages')
+
+    def __str__(self):
+        return f"{self.name} (Project: {self.project.name}, Order: {self.order})"
+
+    class Meta:
+        ordering = ['order']  # Автоматичне сортування за порядком
 
 @receiver(post_save, sender=Project)
 def create_project_collection(sender, instance, created, **kwargs):
