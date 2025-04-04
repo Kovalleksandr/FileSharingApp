@@ -111,3 +111,19 @@ class ProjectUpdateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class ProjectDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, project_id):
+        try:
+            project = Project.objects.get(id=project_id)
+        except Project.DoesNotExist:
+            return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        if project.owner != request.user:
+            return Response({"error": "Only project owner can delete project"}, status=status.HTTP_403_FORBIDDEN)
+        
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)    
