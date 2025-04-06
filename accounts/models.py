@@ -11,6 +11,13 @@ class User(AbstractUser):
     )
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='owner')
+    company = models.ForeignKey(
+        'crm.Company',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='members'
+    )
 
     def __str__(self):
         return f"{self.username} ({self.role})"

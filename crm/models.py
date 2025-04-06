@@ -7,27 +7,38 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class Project(models.Model):
+class Company(models.Model):
     name = models.CharField(max_length=255)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_companies')
     created_at = models.DateTimeField(auto_now_add=True)
-    client_link = models.URLField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 class Stage(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='stages')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='stages')  # Без null=True
     name = models.CharField(max_length=255)
-    order = models.PositiveIntegerField(default=0)  # Порядок етапу
+    order = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_stages')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_stages')
 
     def __str__(self):
-        return f"{self.name} (Project: {self.project.name}, Order: {self.order})"
+        return f"{self.name} (Company: {self.company.name}, Order: {self.order})"
 
     class Meta:
-        ordering = ['order']  # Автоматичне сортування за порядком
+        ordering = ['order']
+        unique_together = ('company', 'order')
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='projects')  # Без null=True
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
+    current_stage = models.ForeignKey(Stage, on_delete=models.PROTECT, null=True, blank=True, related_name='active_projects')
+    created_at = models.DateTimeField(auto_now_add=True)
+    client_link = models.URLField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 @receiver(post_save, sender=Project)
 def create_project_collection(sender, instance, created, **kwargs):
