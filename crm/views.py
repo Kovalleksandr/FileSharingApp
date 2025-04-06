@@ -31,7 +31,7 @@ class ProjectListCreateView(APIView):
         if stage_name:
             projects = projects.filter(current_stage__name=stage_name)
         serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK, content_type='application/json; charset=utf-8')
 
     def post(self, request):
         if request.user.role not in ['owner', 'photographer']:
@@ -40,9 +40,9 @@ class ProjectListCreateView(APIView):
             return Response({"error": "User must belong to a company"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = ProjectSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()  # owner і company встановлюються в serializer.create()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED, content_type='application/json; charset=utf-8')
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type='application/json; charset=utf-8')
 
 class StageCreateView(APIView):
     permission_classes = [IsAuthenticated]

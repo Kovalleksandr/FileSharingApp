@@ -9,3 +9,9 @@ INFO 2025-03-31 20:20:53,442 models Creating collection for project 'Test Projec
 INFO 2025-03-31 20:20:53,458 models Project 'Test Project' (id=4) updated with client_link: http://localhost:8000/api/filesharing/collections/4/client/
 INFO 2025-04-06 21:22:03,124 models Creating collection for project '????? ??????' (id=6) with owner_id=5
 INFO 2025-04-06 21:22:03,140 models Project '????? ??????' (id=6) updated with client_link: http://localhost:8000/api/filesharing/collections/6/client/
+INFO 2025-04-06 21:28:58,623 models Creating collection for project '????? ?????? 2' (id=7) with owner_id=5
+INFO 2025-04-06 21:28:58,623 models Project '????? ?????? 2' (id=7) updated with client_link: http://localhost:8000/api/filesharing/collections/7/client/
+INFO 2025-04-06 21:29:42,587 models Creating collection for project '????? ?????? 3' (id=8) with owner_id=5
+INFO 2025-04-06 21:29:42,603 models Project '????? ?????? 3' (id=8) updated with client_link: http://localhost:8000/api/filesharing/collections/8/client/
+INFO 2025-04-06 22:15:54,496 models Creating collection for project '????? ?????? 4' (id=9) with owner_id=5
+INFO 2025-04-06 22:15:54,519 models Project '????? ?????? 4' (id=9) updated with client_link: http://localhost:8000/api/filesharing/collections/9/client/
