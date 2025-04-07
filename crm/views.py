@@ -6,7 +6,9 @@ from django.db import models
 from .models import Company, Stage, Project
 from .serializers import CompanySerializer, StageSerializer, ProjectSerializer
 
-class CompanyCreateView(APIView):
+# ---- COMPANY-КОМПАНІЇ ---- #
+
+class CompanyCreateView(APIView): # ---- COMPANY-КОМПАНІЇ-додавання ---- #
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -20,7 +22,9 @@ class CompanyCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProjectListCreateView(APIView):
+# ---- PROJECT-ПРОЄКТИ ---- #
+
+class ProjectListCreateView(APIView): # ---- PROJECT-ПРОЄКТИ-додавання ---- #
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -44,7 +48,42 @@ class ProjectListCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED, content_type='application/json; charset=utf-8')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type='application/json; charset=utf-8')
 
-class StageCreateView(APIView):
+class ProjectUpdateView(APIView): # ---- PROJECT-ПРОЄКТИ-оновлення ---- #
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, project_id):
+        try:
+            project = Project.objects.get(id=project_id)
+        except Project.DoesNotExist:
+            return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        if project.company != request.user.company:
+            return Response({"error": "You can only update projects in your company"}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = ProjectSerializer(project, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProjectDeleteView(APIView): # ---- PROJECT-ПРОЄКТИ-видалення ---- #
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, project_id):
+        try:
+            project = Project.objects.get(id=project_id)
+        except Project.DoesNotExist:
+            return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        if project.company != request.user.company or request.user.role not in ['owner', 'admin']:
+            return Response({"error": "Only owners or admins in the same company can delete projects"}, status=status.HTTP_403_FORBIDDEN)
+        
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# ---- STAGE-ЕТАПИ ---- #
+
+class StageCreateView(APIView): # ---- STAGE-ЕТАПИ-додавання ---- #
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -58,7 +97,7 @@ class StageCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class StageUpdateView(APIView):
+class StageUpdateView(APIView): # ---- STAGE-ЕТАПИ-оновлення ---- #
     permission_classes = [IsAuthenticated]
 
     def put(self, request, stage_id):
@@ -83,7 +122,7 @@ class StageUpdateView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class StageDeleteView(APIView):
+class StageDeleteView(APIView): # ---- STAGE-ЕТАПИ-видалення ---- #
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, stage_id):
@@ -100,7 +139,7 @@ class StageDeleteView(APIView):
         stage.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class StageListView(APIView):
+class StageListView(APIView): # ---- STAGE-ЕТАПИ-список ---- #
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -110,36 +149,3 @@ class StageListView(APIView):
         stages = Stage.objects.filter(company=request.user.company).order_by('order')
         serializer = StageSerializer(stages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-class ProjectUpdateView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def put(self, request, project_id):
-        try:
-            project = Project.objects.get(id=project_id)
-        except Project.DoesNotExist:
-            return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-        if project.company != request.user.company:
-            return Response({"error": "You can only update projects in your company"}, status=status.HTTP_403_FORBIDDEN)
-        
-        serializer = ProjectSerializer(project, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ProjectDeleteView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def delete(self, request, project_id):
-        try:
-            project = Project.objects.get(id=project_id)
-        except Project.DoesNotExist:
-            return Response({"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-        if project.company != request.user.company or request.user.role not in ['owner', 'admin']:
-            return Response({"error": "Only owners or admins in the same company can delete projects"}, status=status.HTTP_403_FORBIDDEN)
-        
-        project.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
