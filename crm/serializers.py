@@ -41,11 +41,10 @@ class ProjectSerializer(serializers.ModelSerializer):
         read_only_fields = ['owner', 'created_at', 'client_link', 'company']
 
     def create(self, validated_data):
-        # Автоматично встановлюємо owner як поточного користувача
+        # Додаємо дебаг для перевірки вхідних даних
+        print("Validated data:", validated_data)
         validated_data['owner'] = self.context['request'].user
-        # Автоматично встановлюємо company з користувача
         validated_data['company'] = self.context['request'].user.company
-        # Якщо current_stage не вказано, беремо етап з order=1
         if 'current_stage' not in validated_data or validated_data['current_stage'] is None:
             first_stage = Stage.objects.filter(company=validated_data['company'], order=1).first()
             if first_stage:
