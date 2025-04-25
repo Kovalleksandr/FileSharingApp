@@ -1,10 +1,33 @@
+# accounts\serializers.py
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Invitation, User
 from django.contrib.auth.password_validation import validate_password
 
-
 User = get_user_model()
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'password', 'role', 'company']
+        extra_kwargs = {
+            'company': {'read_only': True},
+            'role': {'read_only': True}
+        }
+
+    def validate_password(self, value):
+        validate_password(value)  # Викликає валідацію з AUTH_PASSWORD_VALIDATORS
+        return value
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password'],
+            role='owner'  # Примусово встановлюємо role='owner' для цього ендпоінта
+        )
+        return user
 
 class AcceptInvitationSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -33,11 +56,6 @@ class AcceptInvitationSerializer(serializers.Serializer):
         )
         invitation.delete()
         return user
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'role']
 
 class InviteSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()

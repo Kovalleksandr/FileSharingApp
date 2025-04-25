@@ -1,3 +1,4 @@
+# accounts/views.py
 import logging
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
@@ -12,6 +13,24 @@ from .serializers import UserSerializer, InviteSerializer, AcceptInvitationSeria
 
 logger = logging.getLogger('accounts')
 
+# Новий ендпоінт для реєстрації власника
+class RegisterOwnerView(APIView):
+    def post(self, request):
+        logger.debug(f"Owner registration request: {request.data}")
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save(role='owner')
+            logger.info(f"Owner registered successfully: {user.username} (ID: {user.id})")
+            return Response({
+                "id": user.id,
+                "username": user.username,
+                "role": user.role,
+                "company": None
+            }, status=status.HTTP_201_CREATED)
+        logger.warning(f"Owner registration failed: {serializer.errors}")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Решта твого коду
 class AcceptInvitationView(APIView):
     def post(self, request):
         logger.debug(f"Received registration request: {request.data}")
@@ -27,10 +46,8 @@ class UserListView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
 class InviteUserView(APIView):
     permission_classes = [IsAuthenticated]
-
     def post(self, request):
         logger.debug(f"Invite request from {request.user.email}: {request.data}")
         if request.user.role != 'owner':
@@ -42,7 +59,6 @@ class InviteUserView(APIView):
             invitation = serializer.save(owner=request.user)
             invite_link = f"http://localhost:8000/api/accounts/accept-invitation/?uuid={invitation.uuid}"
             
-            # Відправка email у HTML
             subject = "Запрошення до FileSharingApp"
             from_email = "no-reply@filesharingapp.com"
             to_email = invitation.email
@@ -70,7 +86,6 @@ class InviteUserView(APIView):
         logger.warning(f"Invite creation failed: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        
 class ValidateInviteView(APIView):
     def get(self, request, uuid):
         logger.debug(f"Validating invitation with UUID: {uuid}")

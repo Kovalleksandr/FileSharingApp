@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import AcceptInvitationView, UserListView, InviteUserView, ValidateInviteView
+from . import views  # Імпортуємо views із поточного додатку accounts
 
 urlpatterns = [
-    path('accept-invitation/', AcceptInvitationView.as_view(), name='accept-invitation'),
-    path('users/', UserListView.as_view(), name='user-list'),
-    path('invite/', InviteUserView.as_view(), name='invite-user'),
-    path('validate-invite/<uuid:uuid>/', ValidateInviteView.as_view(), name='validate-invite'),
+    path('register/', views.RegisterOwnerView.as_view(), name='register-owner'),
+    path('accept-invitation/', views.AcceptInvitationView.as_view(), name='accept-invitation'),
+    path('invitations/', views.InviteUserView.as_view(), name='invite-user'),
+    path('invitations/<uuid:uuid>/', views.ValidateInviteView.as_view(), name='validate-invite'),
+    path('users/', views.UserListView.as_view(), name='user-list'),
 ]

@@ -21,3 +21,4 @@ INFO 2025-04-07 17:44:17,148 models Creating collection for project '????? ?????
 INFO 2025-04-07 17:44:17,148 models Project '????? ?????? 5' (id=11) updated with client_link: http://localhost:8000/api/filesharing/collections/11/client/
 INFO 2025-04-07 17:58:35,310 models Creating collection for project '????? ?????? 6' (id=12) with owner_id=5
 INFO 2025-04-07 17:58:35,326 models Project '????? ?????? 6' (id=12) updated with client_link: http://localhost:8000/api/filesharing/collections/12/client/
+INFO 2025-04-16 13:27:54,955 views Owner registered successfully: owner3 (ID: 8)
