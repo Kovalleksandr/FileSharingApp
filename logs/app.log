@@ -22,3 +22,7 @@ INFO 2025-04-07 17:44:17,148 models Project '????? ?????? 5' (id=11) updated wit
 INFO 2025-04-07 17:58:35,310 models Creating collection for project '????? ?????? 6' (id=12) with owner_id=5
 INFO 2025-04-07 17:58:35,326 models Project '????? ?????? 6' (id=12) updated with client_link: http://localhost:8000/api/filesharing/collections/12/client/
 INFO 2025-04-16 13:27:54,955 views Owner registered successfully: owner3 (ID: 8)
+ERROR 2025-04-25 14:33:43,430 views Failed to send email to admin1@example.com: [WinError 10061] No connection could be made because the target machine actively refused it
+INFO 2025-04-25 14:57:48,818 views Invitation email sent to admin1@example.com by 
+INFO 2025-04-25 15:03:35,967 views Invitation email sent to photographer1@example.com by 
+INFO 2025-04-25 15:06:45,376 views Invitation email sent to retoucher1@example.com by 
