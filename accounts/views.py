@@ -36,9 +36,34 @@ class AcceptInvitationView(APIView):
         logger.debug(f"Received registration request: {request.data}")
         serializer = AcceptInvitationSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            logger.info(f"User registered successfully: {user.email} (ID: {user.id})")
-            return Response({"message": "User registered successfully", "user_id": user.id}, status=status.HTTP_201_CREATED)
+            uuid = request.data.get("uuid")
+            logger.debug(f"Valid serializer data: {serializer.validated_data}")
+            try:
+                invitation = Invitation.objects.get(uuid=uuid)
+                logger.debug(f"Found invitation: UUID={uuid}, Email={invitation.email}, Role={invitation.role}, Owner={invitation.owner_id}")
+            except Invitation.DoesNotExist:
+                logger.error(f"Invitation not found for uuid={uuid}")
+                return Response({"error": "Invitation not found"}, status=status.HTTP_404_NOT_FOUND)
+            
+            if invitation.email != request.data.get("email"):
+                logger.error(f"Email mismatch for invitation {uuid}: expected {invitation.email}, got {request.data.get('email')}")
+                return Response({"error": "Invalid email"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            try:
+                user = serializer.save(
+                    role=invitation.role,
+                    company=invitation.owner.company
+                )
+                logger.debug(f"User created: ID={user.id}, Username={user.username}, Email={user.email}, Role={user.role}, Company={user.company_id}")
+                user.set_password(request.data.get("password"))
+                user.save()
+                logger.debug(f"Password set and user saved: ID={user.id}")
+                invitation.delete()
+                logger.info(f"User registered successfully: {user.email} (ID: {user.id})")
+                return Response({"message": "User registered successfully", "user_id": user.id}, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                logger.error(f"Failed to create user: {str(e)}")
+                return Response({"error": f"Failed to create user: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         logger.warning(f"Registration failed: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

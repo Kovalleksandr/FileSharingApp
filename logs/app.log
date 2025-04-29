@@ -26,3 +26,11 @@ ERROR 2025-04-25 14:33:43,430 views Failed to send email to admin1@example.com: 
 INFO 2025-04-25 14:57:48,818 views Invitation email sent to admin1@example.com by 
 INFO 2025-04-25 15:03:35,967 views Invitation email sent to photographer1@example.com by 
 INFO 2025-04-25 15:06:45,376 views Invitation email sent to retoucher1@example.com by 
+INFO 2025-04-29 19:34:50,836 views User registered successfully: admin1@example.com (ID: 9)
+WARNING 2025-04-29 19:53:51,600 views Invite creation failed: {'non_field_errors': [ErrorDetail(string='This email is already registered.', code='invalid')]}
+WARNING 2025-04-29 19:55:06,236 views Invite creation failed: {'non_field_errors': [ErrorDetail(string='This email is already registered.', code='invalid')]}
+INFO 2025-04-29 20:00:22,389 views Invitation email sent to admin1@example.com by 
+INFO 2025-04-29 20:01:27,566 views User registered successfully: admin1@example.com (ID: 10)
+WARNING 2025-04-29 20:12:34,531 views Invite creation failed: {'non_field_errors': [ErrorDetail(string='This email is already registered.', code='invalid')]}
+INFO 2025-04-29 20:16:51,321 views Invitation email sent to admin1@example.com by 
+INFO 2025-04-29 20:20:11,877 views User registered successfully: admin1@example.com (ID: 11)
