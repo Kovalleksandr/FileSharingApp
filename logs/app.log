@@ -34,3 +34,8 @@ INFO 2025-04-29 20:01:27,566 views User registered successfully: admin1@example.
 WARNING 2025-04-29 20:12:34,531 views Invite creation failed: {'non_field_errors': [ErrorDetail(string='This email is already registered.', code='invalid')]}
 INFO 2025-04-29 20:16:51,321 views Invitation email sent to admin1@example.com by 
 INFO 2025-04-29 20:20:11,877 views User registered successfully: admin1@example.com (ID: 11)
+INFO 2025-05-11 09:14:56,610 views User registered successfully: photographer1@example.com (ID: 12)
+INFO 2025-05-11 09:29:07,241 views Invitation email sent to retoucher1@example.com by 
+INFO 2025-05-11 09:31:12,233 views User registered successfully: retoucher1@example.com (ID: 13)
+INFO 2025-05-11 09:48:00,580 models Creating collection for project 'Test Project' (id=16) with owner_id=12
+INFO 2025-05-11 09:48:00,598 models Project 'Test Project' (id=16) updated with client_link: http://localhost:8000/api/filesharing/collections/16/client/
