@@ -5,8 +5,8 @@ class Collection(models.Model):
     name = models.CharField(max_length=255)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='collections')
     created_at = models.DateTimeField(auto_now_add=True)
-    # Додаткове поле для зв’язку з проєктом (опціонально, заповнюється з crm)
     project = models.ForeignKey('crm.Project', on_delete=models.CASCADE, null=True, blank=True, related_name='collections')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subcollections')  # Додано для папок
 
     def __str__(self):
         return self.name

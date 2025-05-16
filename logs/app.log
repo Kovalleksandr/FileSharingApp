@@ -39,3 +39,6 @@ INFO 2025-05-11 09:29:07,241 views Invitation email sent to retoucher1@example.c
 INFO 2025-05-11 09:31:12,233 views User registered successfully: retoucher1@example.com (ID: 13)
 INFO 2025-05-11 09:48:00,580 models Creating collection for project 'Test Project' (id=16) with owner_id=12
 INFO 2025-05-11 09:48:00,598 models Project 'Test Project' (id=16) updated with client_link: http://localhost:8000/api/filesharing/collections/16/client/
+INFO 2025-05-16 21:09:37,113 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image_sB7EZBa.jpg
+INFO 2025-05-16 21:14:41,851 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image_DpxF8kg.jpg
+INFO 2025-05-16 21:51:13,410 views Collection created by photographer1@example.com: Subfolder 1
