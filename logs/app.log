@@ -44,3 +44,5 @@ INFO 2025-05-16 21:14:41,851 views Photo uploaded by photographer1@example.com t
 INFO 2025-05-16 21:51:13,410 views Collection created by photographer1@example.com: Subfolder 1
 INFO 2025-05-23 19:37:25,199 views Photo selected in collection 16, photo_id: 3
 INFO 2025-05-23 19:37:47,340 views Collection 16 viewed by photographer1@example.com
+INFO 2025-05-23 19:41:13,777 views Client link generated for collection 16 by photographer1@example.com: http://localhost:8000/api/filesharing/collections/16/client/
+INFO 2025-05-23 19:41:36,276 views Collection 16 viewed by client
