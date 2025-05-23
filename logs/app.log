@@ -50,3 +50,15 @@ INFO 2025-05-23 19:45:26,805 views Photo uploaded by photographer1@example.com t
 INFO 2025-05-23 19:45:26,835 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image2.jpg
 INFO 2025-05-23 19:48:45,124 views Photo 3 deleted by photographer1@example.com from collection 16
 INFO 2025-05-23 19:49:29,235 views Collection 16 viewed by client
+INFO 2025-05-23 19:54:29,109 views Photo 4 deleted by photographer1@example.com from collection 16
+INFO 2025-05-23 19:54:36,420 views Collection 16 viewed by client
+INFO 2025-05-23 19:59:15,884 views Collection 17 deleted by photographer1@example.com
+INFO 2025-05-23 19:59:24,779 views Collection 16 viewed by client
+INFO 2025-05-23 20:07:32,432 views Photo 5 deleted by photographer1@example.com from collection 16
+INFO 2025-05-23 20:11:17,142 views Collection 16 viewed by photographer1@example.com
+INFO 2025-05-23 20:17:16,257 views Photo 2 deleted by photographer1@example.com from collection 16
+INFO 2025-05-23 20:17:26,345 views Collection 16 viewed by client
+INFO 2025-05-23 20:39:06,274 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image3.jpg
+INFO 2025-05-23 20:46:41,534 views Collection 16 viewed by client
+INFO 2025-05-23 20:47:09,640 views Photo 6 deleted from database by photographer1@example.com in collection 16
+INFO 2025-05-23 20:47:17,035 views Collection 16 viewed by client
