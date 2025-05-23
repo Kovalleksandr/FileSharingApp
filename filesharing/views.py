@@ -65,21 +65,64 @@ class PhotoUploadView(APIView):
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
 
-            data = {
-                'file': request.FILES.get('file'),
-                'collection': collection.id,
-                'uploaded_by': request.user.id
-            }
-            serializer = PhotoSerializer(data=data)
-            if serializer.is_valid():
-                photo = serializer.save()
-                logger.info(f"Photo uploaded by {request.user.email} to collection {collection_id}: {photo.file.url}")
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            logger.error(f"Serializer errors: {serializer.errors}")
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            files = request.FILES.getlist('files')  # Отримуємо список файлів
+            if not files:
+                return Response({"error": "No files provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+            uploaded_photos = []
+            for file in files:
+                data = {
+                    'file': file,
+                    'collection': collection.id,
+                    'uploaded_by': request.user.id
+                }
+                serializer = PhotoSerializer(data=data)
+                if serializer.is_valid():
+                    photo = serializer.save()
+                    uploaded_photos.append(serializer.data)
+                    logger.info(f"Photo uploaded by {request.user.email} to collection {collection_id}: {photo.file.url}")
+                else:
+                    logger.error(f"Serializer errors for file {file.name}: {serializer.errors}")
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response(uploaded_photos, status=status.HTTP_201_CREATED)
         except Collection.DoesNotExist:
             logger.error(f"Collection {collection_id} not found")
             return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+
+
+#---------------------------------------------------------------------------------------------
+''' class PhotoDeleteView(APIView).
+    Це ендпоінт для видалення фотографій з колекції.
+    Використовується для видалення фотографії за її ID.
+    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Повертає 204 No Content при успішному видаленні, 404 Not Found, якщо фотографія не знайдена,
+    403 Forbidden, якщо користувач не має доступу до цієї фотографії.
+'''
+
+class PhotoDeleteView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
+
+    def delete(self, request, collection_id, photo_id):
+        logger.debug(f"Photo deletion attempt by {request.user.email} for photo {photo_id} in collection {collection_id}")
+        try:
+            photo = Photo.objects.get(id=photo_id, collection_id=collection_id)
+            if photo.uploaded_by != request.user and request.user.role != 'retoucher':
+                logger.warning(f"Access denied for {request.user.email} to delete photo {photo_id}")
+                return Response({"error": "You can only delete your own photos"}, status=status.HTTP_403_FORBIDDEN)
+            photo_file = photo.file.path
+            photo.delete()
+            import os
+            if os.path.exists(photo_file):
+                os.remove(photo_file)
+                logger.info(f"Photo file {photo_file} deleted from storage")
+            logger.info(f"Photo {photo_id} deleted by {request.user.email} from collection {collection_id}")
+            return Response({"message": "Photo deleted"}, status=status.HTTP_204_NO_CONTENT)
+        except Photo.DoesNotExist:
+            logger.error(f"Photo {photo_id} not found in collection {collection_id}")
+            return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 

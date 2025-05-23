@@ -46,3 +46,7 @@ INFO 2025-05-23 19:37:25,199 views Photo selected in collection 16, photo_id: 3
 INFO 2025-05-23 19:37:47,340 views Collection 16 viewed by photographer1@example.com
 INFO 2025-05-23 19:41:13,777 views Client link generated for collection 16 by photographer1@example.com: http://localhost:8000/api/filesharing/collections/16/client/
 INFO 2025-05-23 19:41:36,276 views Collection 16 viewed by client
+INFO 2025-05-23 19:45:26,805 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image_iEhnjRQ.jpg
+INFO 2025-05-23 19:45:26,835 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image2.jpg
+INFO 2025-05-23 19:48:45,124 views Photo 3 deleted by photographer1@example.com from collection 16
+INFO 2025-05-23 19:49:29,235 views Collection 16 viewed by client
