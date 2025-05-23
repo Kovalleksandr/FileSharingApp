@@ -129,7 +129,71 @@ class CollectionView(APIView):
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
             serializer = CollectionSerializer(collection)
+            logger.info(f"Collection {collection_id} viewed by {request.user.email}")
             return Response(serializer.data)
         except Collection.DoesNotExist:
             logger.error(f"Collection {collection_id} not found")
-            return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)    
+            return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)  
+        
+
+
+#---------------------------------------------------------------------------------------------
+'''class ClientCollectionView(APIView)
+    Це ендпоінт для отримання інформації про колекцію для клієнта.
+    Використовується для отримання даних про конкретну колекцію за її ID.
+    Доступний тільки для авторизованих користувачів з роллю клієнта.
+    Повертає 200 OK з даними колекції, 404 Not Found, якщо колекція не знайдена,
+    403 Forbidden, якщо користувач не має доступу до цієї колекції.
+    Використовується для вибору фотографії з колекції.
+    Повертає 200 OK з повідомленням про успішний вибір фотографії,
+    404 Not Found, якщо фотографія не знайдена.
+
+'''
+class ClientCollectionView(APIView):
+    def get(self, request, collection_id):
+        try:
+            collection = Collection.objects.get(id=collection_id)
+            serializer = CollectionSerializer(collection)
+            logger.info(f"Collection {collection_id} viewed by client")
+            return Response(serializer.data)
+        except Collection.DoesNotExist:
+            return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, collection_id):
+        try:
+            photo = Photo.objects.get(id=request.data.get('photo_id'), collection_id=collection_id)
+            photo.is_selected = True
+            photo.save()
+            logger.info(f"Photo selected in collection {collection_id}, photo_id: {request.data.get('photo_id')}")
+            return Response({"message": "Photo selected"})
+        except Photo.DoesNotExist:
+            return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+
+
+#---------------------------------------------------------------------------------------------
+""" class GenerateClientLinkView(APIView)
+    Це ендпоінт для генерації посилання для клієнта на колекцію.
+    Використовується для створення посилання, яке може бути надіслане клієнту для доступу до колекції.
+    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Повертає 200 OK з посиланням на колекцію, 404 Not Found, якщо колекція не знайдена,
+    403 Forbidden, якщо користувач не має доступу до цієї колекції.
+"""
+
+class GenerateClientLinkView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
+
+    def post(self, request):
+        collection_id = request.data.get('collection_id')
+        try:
+            collection = Collection.objects.get(id=collection_id)
+            if collection.project.company != request.user.company:
+                logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
+                return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
+            client_link = f"http://localhost:8000/api/filesharing/collections/{collection_id}/client/"
+            logger.info(f"Client link generated for collection {collection_id} by {request.user.email}: {client_link}")
+            return Response({"client_link": client_link})
+        except Collection.DoesNotExist:
+            logger.error(f"Collection {collection_id} not found")
+            return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
+        
