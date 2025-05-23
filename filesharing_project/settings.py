@@ -132,10 +132,11 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': 'DEBUG',  # Змінено з INFO на DEBUG
             'class': 'logging.FileHandler',
             'filename': 'logs/app.log',
             'formatter': 'verbose',
+            'encoding': 'utf-8',
         },
         'console': {
             'level': 'DEBUG',
@@ -156,7 +157,7 @@ LOGGING = {
         },
         'filesharing': {
             'handlers': ['file', 'console'],
-            'level': 'INFO',
+            'level': 'DEBUG',  # Змінено з INFO на DEBUG
             'propagate': False,
         },
     },

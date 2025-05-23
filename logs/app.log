@@ -62,3 +62,17 @@ INFO 2025-05-23 20:39:06,274 views Photo uploaded by photographer1@example.com t
 INFO 2025-05-23 20:46:41,534 views Collection 16 viewed by client
 INFO 2025-05-23 20:47:09,640 views Photo 6 deleted from database by photographer1@example.com in collection 16
 INFO 2025-05-23 20:47:17,035 views Collection 16 viewed by client
+DEBUG 2025-05-23 21:01:20,781 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-23 21:01:20,781 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-23 21:01:20,844 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image3.jpg
+INFO 2025-05-23 21:01:29,115 views Collection 16 viewed by client
+DEBUG 2025-05-23 21:01:40,301 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-23 21:01:40,301 views Photo deletion attempt by photographer1@example.com for photo 7 in collection 16
+INFO 2025-05-23 21:01:40,301 views Attempting to delete photo 7 with file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg
+DEBUG 2025-05-23 21:01:40,301 views Photo file path resolved: C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg
+INFO 2025-05-23 21:01:40,316 views Photo 7 deleted from database by photographer1@example.com in collection 16
+DEBUG 2025-05-23 21:01:40,316 views Entering file deletion block for C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg
+DEBUG 2025-05-23 21:01:40,316 views File C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg exists, attempting to delete
+INFO 2025-05-23 21:01:40,316 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg successfully deleted from storage
+DEBUG 2025-05-23 21:01:40,316 views File deletion block completed for C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg
+INFO 2025-05-23 21:01:52,927 views Collection 16 viewed by client

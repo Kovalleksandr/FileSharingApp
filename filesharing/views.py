@@ -109,14 +109,18 @@ class PhotoDeleteView(APIView):
                 return Response({"error": "You can only delete your own photos"}, status=status.HTTP_403_FORBIDDEN)
             photo_file = photo.file.path
             logger.info(f"Attempting to delete photo {photo_id} with file {photo_file}")
+            logger.debug(f"Photo file path resolved: {photo_file}")
             photo.delete()
             logger.info(f"Photo {photo_id} deleted from database by {request.user.email} in collection {collection_id}")
+            logger.debug(f"Entering file deletion block for {photo_file}")
             try:
                 if os.path.exists(photo_file):
+                    logger.debug(f"File {photo_file} exists, attempting to delete")
                     os.remove(photo_file)
                     logger.info(f"Photo file {photo_file} successfully deleted from storage")
                 else:
                     logger.warning(f"Photo file {photo_file} not found on disk")
+                logger.debug(f"File deletion block completed for {photo_file}")
                 return Response({"message": "Photo deleted"}, status=status.HTTP_200_OK)
             except Exception as e:
                 logger.error(f"Failed to delete photo file {photo_file}: {str(e)}")
@@ -124,7 +128,6 @@ class PhotoDeleteView(APIView):
         except Photo.DoesNotExist:
             logger.error(f"Photo {photo_id} not found in collection {collection_id}")
             return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
-
 
 
 
