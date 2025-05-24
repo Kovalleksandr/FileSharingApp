@@ -76,3 +76,29 @@ DEBUG 2025-05-23 21:01:40,316 views File C:\Users\koval\OneDrive\Докумен�
 INFO 2025-05-23 21:01:40,316 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg successfully deleted from storage
 DEBUG 2025-05-23 21:01:40,316 views File deletion block completed for C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image3.jpg
 INFO 2025-05-23 21:01:52,927 views Collection 16 viewed by client
+DEBUG 2025-05-23 21:09:04,041 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-23 21:09:04,049 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-23 21:09:04,112 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image3.jpg
+DEBUG 2025-05-24 17:50:58,160 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 17:50:58,160 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 17:50:58,223 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/test_image4.jpg
+DEBUG 2025-05-24 17:55:07,379 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 17:55:07,379 views Photo deletion attempt by photographer1@example.com for photo 9 in collection 16
+INFO 2025-05-24 17:55:07,379 views Attempting to delete photo 9 with file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image4.jpg
+INFO 2025-05-24 17:55:07,397 views Photo 9 deleted from database by photographer1@example.com in collection 16
+INFO 2025-05-24 17:55:07,398 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\test_image4.jpg successfully deleted from storage
+INFO 2025-05-24 18:01:05,575 views Collection 16 viewed by client
+DEBUG 2025-05-24 18:15:12,306 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 18:15:12,306 views Collection update attempt by photographer1@example.com for collection 16
+DEBUG 2025-05-24 18:16:53,151 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 18:16:53,151 views Collection update attempt by photographer1@example.com for collection 16
+DEBUG 2025-05-24 18:19:27,457 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 18:19:27,457 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 18:19:27,523 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder
+INFO 2025-05-24 18:21:57,668 views Collection 16 viewed by client
+DEBUG 2025-05-24 18:22:12,243 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 18:22:12,243 views Collection update attempt by photographer1@example.com for collection 16
+ERROR 2025-05-24 18:22:12,268 views Serializer errors for collection 16: {'name': [ErrorDetail(string='Це поле не може бути порожнім.', code='blank')]}
+DEBUG 2025-05-24 18:22:27,308 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 18:22:27,310 views Collection update attempt by photographer1@example.com for collection 999
+ERROR 2025-05-24 18:22:27,318 views Collection 999 not found
