@@ -102,3 +102,64 @@ ERROR 2025-05-24 18:22:12,268 views Serializer errors for collection 16: {'name'
 DEBUG 2025-05-24 18:22:27,308 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
 DEBUG 2025-05-24 18:22:27,310 views Collection update attempt by photographer1@example.com for collection 999
 ERROR 2025-05-24 18:22:27,318 views Collection 999 not found
+INFO 2025-05-24 19:08:13,476 views Collection 16 viewed by client
+INFO 2025-05-24 19:08:13,640 views Collection 16 viewed by client
+DEBUG 2025-05-24 19:08:52,975 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:08:52,975 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:08:53,017 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder 1
+DEBUG 2025-05-24 19:09:33,336 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:09:33,344 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:09:34,751 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/IMG_2920.JPG
+DEBUG 2025-05-24 19:10:18,252 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:10:18,253 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:10:18,293 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F_viber_2025-05-19_19-38-07-841.png
+DEBUG 2025-05-24 19:10:35,559 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:10:35,559 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:10:35,603 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F_viber_2025-05-19_19-38-12-481.png
+DEBUG 2025-05-24 19:10:43,912 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:10:43,912 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:10:43,947 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder 12
+DEBUG 2025-05-24 19:10:47,880 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:10:47,885 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:10:47,918 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder 12
+DEBUG 2025-05-24 19:10:53,587 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:10:53,587 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:10:53,627 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder 1qqw
+DEBUG 2025-05-24 19:18:05,004 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:18:05,004 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:18:05,122 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_%D0%B0%D0%B2%D1%82%D0%BE%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%8F%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-Tue_20_May_2025_06_54_23_GMT.png
+DEBUG 2025-05-24 19:18:11,614 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:18:11,614 views Photo deletion attempt by photographer1@example.com for photo 12 in collection 16
+INFO 2025-05-24 19:18:11,623 views Attempting to delete photo 12 with file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\зображення_viber_2025-05-19_19-38-12-481.png
+INFO 2025-05-24 19:18:11,631 views Photo 12 deleted from database by photographer1@example.com in collection 16
+INFO 2025-05-24 19:18:11,631 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\зображення_viber_2025-05-19_19-38-12-481.png successfully deleted from storage
+DEBUG 2025-05-24 19:19:32,492 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:19:32,492 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:19:32,570 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/1397504_194445-OY9XA4-13.jpg
+DEBUG 2025-05-24 19:19:47,794 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-24 19:19:47,794 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-24 19:19:47,848 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/for_home_1.jpg
+INFO 2025-05-26 20:48:36,455 views Collection 16 viewed by client
+INFO 2025-05-26 20:48:36,624 views Collection 16 viewed by client
+DEBUG 2025-05-26 20:48:59,331 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-26 20:48:59,331 views Photo upload attempt by photographer1@example.com for collection 16
+INFO 2025-05-26 20:48:59,535 views Photo uploaded by photographer1@example.com to collection 16: /media/photos/33049625_7928931.jpg
+DEBUG 2025-05-26 20:49:06,507 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-26 20:49:06,507 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-26 20:49:06,562 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder 1qqw
+DEBUG 2025-05-26 20:49:08,198 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-26 20:49:08,206 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-26 20:49:08,249 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder 1qqw
+DEBUG 2025-05-26 20:49:31,956 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-26 20:49:31,956 views Collection update attempt by photographer1@example.com for collection 16
+INFO 2025-05-26 20:49:32,004 views Collection 16 updated by photographer1@example.com: new name Updated Project Folder test rename
+DEBUG 2025-05-26 20:49:39,197 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-26 20:49:39,197 views Photo deletion attempt by photographer1@example.com for photo 16 in collection 16
+INFO 2025-05-26 20:49:39,199 views Attempting to delete photo 16 with file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\33049625_7928931.jpg
+INFO 2025-05-26 20:49:39,217 views Photo 16 deleted from database by photographer1@example.com in collection 16
+INFO 2025-05-26 20:49:39,217 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\33049625_7928931.jpg successfully deleted from storage
+DEBUG 2025-05-26 20:49:50,398 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-05-26 20:49:50,398 views Photo deletion attempt by photographer1@example.com for photo 14 in collection 16
+INFO 2025-05-26 20:49:50,417 views Attempting to delete photo 14 with file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\1397504_194445-OY9XA4-13.jpg
+INFO 2025-05-26 20:49:50,417 views Photo 14 deleted from database by photographer1@example.com in collection 16
+INFO 2025-05-26 20:49:50,417 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\1397504_194445-OY9XA4-13.jpg successfully deleted from storage
