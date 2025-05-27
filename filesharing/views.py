@@ -4,30 +4,31 @@ from rest_framework import status, permissions
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Collection, Photo
 from .serializers import CollectionSerializer, PhotoSerializer
+from crm.models import Company, Project  # Імпорти з crm.models
 import logging
 import os
 from .permissions import IsPhotographerOrRetoucher
 
+# Налаштування логування
 logger = logging.getLogger('filesharing')
 
 class ClientCollectionView(APIView):
     """
-    Ендпоінт для отримання інформації про колекцію для клієнта.
-    Використовується для отримання даних про конкретну колекцію за її ID (GET)
-    або для вибору фотографії з колекції (POST).
-    Доступний для всіх користувачів (GET) або клієнтів (POST).
+    Ендпоінт для клієнтського доступу до колекції.
+    Дозволяє отримати дані колекції (GET) або вибрати фото (POST).
+    GET доступний для всіх, POST доступний для клієнтів.
     Повертає:
-        - GET: 200 OK з даними колекції, 404 Not Found, якщо колекція не знайдена.
-        - POST: 200 OK з повідомленням про успішний вибір фотографії,
-                404 Not Found, якщо фотографія не знайдена.
+        - GET: 200 OK з даними колекції, 404 якщо колекція не знайдена.
+        - POST: 200 OK при виборі фото, 404 якщо фото не знайдено.
     """
     def get(self, request, collection_id):
         try:
-            collection = Collection.objects.get(id=collection_id)
+            collection = Collection.objects.get(pk=collection_id)
             serializer = CollectionSerializer(collection)
-            logger.info(f"Collection {collection_id} viewed by client")
-            return Response(serializer.data)
+            logger.info(f"Client viewed collection {collection_id}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Collection.DoesNotExist:
+            logger.error(f"Collection {collection_id} not found")
             return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, collection_id):
@@ -35,43 +36,38 @@ class ClientCollectionView(APIView):
             photo = Photo.objects.get(id=request.data.get('photo_id'), collection_id=collection_id)
             photo.is_selected = True
             photo.save()
-            logger.info(f"Photo selected in collection {collection_id}, photo_id: {request.data.get('photo_id')}")
-            return Response({"message": "Photo selected"})
+            logger.info(f"Photo {photo.id} selected in collection {collection_id}")
+            return Response({"message": "Photo selected"}, status=status.HTTP_200_OK)
         except Photo.DoesNotExist:
+            logger.error(f"Photo ID {request.data.get('photo_id')} not found in collection {collection_id}")
             return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
 
 class PhotoUploadView(APIView):
     """
     Ендпоінт для завантаження фотографій у колекцію.
-    Використовується MultiPartParser для обробки файлів.
-    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
-    Відповідає за перевірку прав доступу та збереження фотографії у базі даних.
-    Використовує PhotoSerializer для валідації даних.
+    Використовує MultiPartParser для обробки файлів.
+    Доступний для авторизованих користувачів (фотографів/ретушерів).
     Повертає:
         - 201 Created при успішному завантаженні.
         - 400 Bad Request при помилках валідації.
-        - 401 Unauthorized при відсутності аутентифікації.
-        - 403 Forbidden при недостатніх правах доступу.
-        - 404 Not Found, якщо колекція не знайдена.
-    Користувач може завантажувати фото лише в колекції, які належать проєкту його компанії.
+        - 401 Unauthorized без аутентифікації.
+        - 403 Forbidden без прав доступу.
+        - 404 Not Found якщо колекція не знайдена.
     """
-    parser_classes = (MultiPartParser, FormParser)
+    parser_classes = [MultiPartParser, FormParser]
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
 
     def post(self, request, collection_id):
-        logger.debug(f"Photo upload attempt by {request.user.email if request.user.is_authenticated else 'anonymous'} for collection {collection_id}")
-        if not request.user.is_authenticated:
-            logger.error("User is not authenticated")
-            return Response({"error": "Authentication required"}, status=status.HTTP_401_UNAUTHORIZED)
-
+        logger.debug(f"Photo upload attempt by {request.user.email} for collection {collection_id}")
         try:
-            collection = Collection.objects.get(id=collection_id)
+            collection = Collection.objects.get(pk=collection_id)
             if collection.project and collection.project.company != request.user.company:
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
 
             files = request.FILES.getlist('files')
             if not files:
+                logger.error("No files provided in upload request")
                 return Response({"error": "No files provided"}, status=status.HTTP_400_BAD_REQUEST)
 
             uploaded_photos = []
@@ -98,12 +94,11 @@ class PhotoUploadView(APIView):
 class PhotoDeleteView(APIView):
     """
     Ендпоінт для видалення фотографій з колекції.
-    Використовується для видалення фотографії за її ID.
-    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Доступний для авторизованих фотографів/ретушерів.
     Повертає:
-        - 200 OK з повідомленням про успішне видалення.
-        - 404 Not Found, якщо фотографія не знайдена.
-        - 403 Forbidden, якщо користувач не має доступу до цієї фотографії.
+        - 200 OK при успішному видаленні.
+        - 403 Forbidden без прав доступу.
+        - 404 Not Found якщо фото не знайдено.
     """
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
 
@@ -115,30 +110,27 @@ class PhotoDeleteView(APIView):
                 logger.warning(f"Access denied for {request.user.email} to delete photo {photo_id}")
                 return Response({"error": "You can only delete your own photos"}, status=status.HTTP_403_FORBIDDEN)
             photo_file = photo.file.path
-            logger.info(f"Attempting to delete photo {photo_id} with file {photo_file}")
             photo.delete()
-            logger.info(f"Photo {photo_id} deleted from database by {request.user.email} in collection {collection_id}")
+            logger.info(f"Photo {photo_id} deleted from database by {request.user.email}")
             try:
                 if os.path.exists(photo_file):
                     os.remove(photo_file)
-                    logger.info(f"Photo file {photo_file} successfully deleted from storage")
+                    logger.info(f"Photo file {photo_file} deleted from storage")
                 else:
                     logger.warning(f"Photo file {photo_file} not found on disk")
-                return Response({"message": "Photo deleted"}, status=status.HTTP_200_OK)
             except Exception as e:
                 logger.error(f"Failed to delete photo file {photo_file}: {str(e)}")
-                return Response({"message": "Photo deleted, but file removal failed"}, status=status.HTTP_200_OK)
+            return Response({"message": "Photo deleted"}, status=status.HTTP_200_OK)
         except Photo.DoesNotExist:
             logger.error(f"Photo {photo_id} not found in collection {collection_id}")
             return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
 
 class CollectionCreateView(APIView):
     """
-    Ендпоінт для створення колекцій або підколекцій.
-    Використовується для створення нової колекції з батьківською колекцією (опціонально).
-    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Ендпоінт для створення колекцій/підколекцій.
+    Доступний для авторизованих фотографів/ретушерів.
     Повертає:
-        - 201 Created з даними нової колекції.
+        - 201 Created з даними колекції.
         - 400 Bad Request при помилках валідації.
     """
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
@@ -159,31 +151,43 @@ class CollectionCreateView(APIView):
         logger.error(f"Serializer errors: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class CollectionListView(APIView):
+    """
+    Ендпоінт для отримання списку колекцій.
+    Доступний для авторизованих фотографів/ретушерів.
+    Повертає:
+        - 200 OK зі списком колекцій.
+        - 403 Forbidden без прав доступу.
+    """
+    permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
+
+    def get(self, request):
+        logger.debug(f"Collection list view attempt by {request.user.email}")
+        collections = Collection.objects.filter(project__company=request.user.company)
+        serializer = CollectionSerializer(collections, many=True)
+        logger.info(f"Collection list viewed by {request.user.email}, count: {len(collections)}")
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class CollectionView(APIView):
     """
-    Ендпоінт для отримання та редагування інформації про колекцію.
-    Використовується для отримання даних про колекцію за її ID (GET)
-    або оновлення назви колекції (PATCH).
-    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Ендпоінт для роботи з колекцією (отримання/редагування).
+    Доступний для авторизованих фотографів/ретушерів.
     Повертає:
-        - GET: 200 OK з даними колекції, 404 Not Found, якщо колекція не знайдена,
-               403 Forbidden, якщо користувач не має доступу.
-        - PATCH: 200 OK з оновленими даними колекції, 400 Bad Request при помилках валідації,
-                 404 Not Found, якщо колекція не знайдена,
-                 403 Forbidden, якщо користувач не має доступу.
+        - GET: 200 OK з даними колекції, 404 якщо не знайдена.
+        - PATCH: 200 OK з оновленими даними, 400/404 при помилках.
     """
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
 
     def get(self, request, collection_id):
         logger.debug(f"Collection view attempt by {request.user.email} for collection {collection_id}")
         try:
-            collection = Collection.objects.get(id=collection_id)
+            collection = Collection.objects.get(pk=collection_id)
             if collection.project and collection.project.company != request.user.company:
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
             serializer = CollectionSerializer(collection)
             logger.info(f"Collection {collection_id} viewed by {request.user.email}")
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Collection.DoesNotExist:
             logger.error(f"Collection {collection_id} not found")
             return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -191,11 +195,10 @@ class CollectionView(APIView):
     def patch(self, request, collection_id):
         logger.debug(f"Collection update attempt by {request.user.email} for collection {collection_id}")
         try:
-            collection = Collection.objects.get(id=collection_id)
+            collection = Collection.objects.get(pk=collection_id)
             if collection.project and collection.project.company != request.user.company:
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
-            
             serializer = CollectionSerializer(collection, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
@@ -210,28 +213,27 @@ class CollectionView(APIView):
 class CollectionDeleteView(APIView):
     """
     Ендпоінт для видалення колекції.
-    Використовується для видалення колекції за її ID.
-    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Доступний для авторизованих фотографів/ретушерів.
     Повертає:
-        - 200 OK з повідомленням про успішне видалення.
-        - 404 Not Found, якщо колекція не знайдена.
-        - 403 Forbidden, якщо користувач не має доступу до цієї колекції.
-        - 400 Bad Request, якщо колекція містить фотографії або підколекції.
+        - 200 OK при успішному видаленні.
+        - 400 Bad Request якщо є фото/підколекції.
+        - 403 Forbidden без прав доступу.
+        - 404 Not Found якщо колекція не знайдена.
     """
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
 
     def delete(self, request, collection_id):
         logger.debug(f"Collection deletion attempt by {request.user.email} for collection {collection_id}")
         try:
-            collection = Collection.objects.get(id=collection_id)
-            if collection.project.company != request.user.company:
+            collection = Collection.objects.get(pk=collection_id)
+            if collection.project and collection.project.company != request.user.company:
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
             if collection.photos.exists():
-                logger.warning(f"Collection {collection_id} contains photos and cannot be deleted")
+                logger.warning(f"Collection {collection_id} contains photos")
                 return Response({"error": "Collection contains photos and cannot be deleted"}, status=status.HTTP_400_BAD_REQUEST)
             if collection.subcollections.exists():
-                logger.warning(f"Collection {collection_id} contains subcollections and cannot be deleted")
+                logger.warning(f"Collection {collection_id} contains subcollections")
                 return Response({"error": "Collection contains subcollections and cannot be deleted"}, status=status.HTTP_400_BAD_REQUEST)
             collection.delete()
             logger.info(f"Collection {collection_id} deleted by {request.user.email}")
@@ -242,26 +244,26 @@ class CollectionDeleteView(APIView):
 
 class GenerateClientLinkView(APIView):
     """
-    Ендпоінт для генерації посилання для клієнта на колекцію.
-    Використовується для створення посилання, яке може бути надіслане клієнту для доступу до колекції.
-    Доступний тільки для авторизованих користувачів з роллю фотографа або ретушера.
+    Ендпоінт для генерації клієнтського посилання на колекцію.
+    Доступний для авторизованих фотографів/ретушерів.
     Повертає:
-        - 200 OK з посиланням на колекцію.
-        - 404 Not Found, якщо колекція не знайдена.
-        - 403 Forbidden, якщо користувач не має доступу до цієї колекції.
+        - 200 OK з посиланням.
+        - 403 Forbidden без прав доступу.
+        - 404 Not Found якщо колекція не знайдена.
     """
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
 
     def post(self, request):
         collection_id = request.data.get('collection_id')
+        logger.debug(f"Client link generation attempt by {request.user.email} for collection {collection_id}")
         try:
-            collection = Collection.objects.get(id=collection_id)
-            if collection.project.company != request.user.company:
+            collection = Collection.objects.get(pk=collection_id)
+            if collection.project and collection.project.company != request.user.company:
                 logger.warning(f"Access denied for {request.user.email} to collection {collection_id}")
                 return Response({"error": "You do not have access to this collection"}, status=status.HTTP_403_FORBIDDEN)
             client_link = f"http://localhost:8000/api/filesharing/collections/{collection_id}/client/"
             logger.info(f"Client link generated for collection {collection_id} by {request.user.email}: {client_link}")
-            return Response({"client_link": client_link})
+            return Response({"client_link": client_link}, status=status.HTTP_200_OK)
         except Collection.DoesNotExist:
             logger.error(f"Collection {collection_id} not found")
             return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
