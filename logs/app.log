@@ -202,3 +202,7 @@ INFO 2025-05-26 22:37:31,287 views Photo 18 deleted from database by photographe
 INFO 2025-05-26 22:37:31,298 views Photo file C:\Users\koval\OneDrive\Документы\IT_work\FileSharingApp\media\photos\IMG_4414_2.jpg deleted from storage
 INFO 2025-05-27 21:44:17,785 views Client viewed collection 16
 INFO 2025-05-27 21:44:17,964 views Client viewed collection 16
+DEBUG 2025-05-30 21:45:02,733 views_jwt Token request: username=photographer1
+INFO 2025-05-30 21:45:03,848 views_jwt Token issued for username=photographer1
+DEBUG 2025-05-30 21:51:56,811 views_jwt Token request: username=photographer1
+INFO 2025-05-30 21:51:57,894 views_jwt Token issued for username=photographer1
