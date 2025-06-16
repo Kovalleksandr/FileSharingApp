@@ -250,3 +250,10 @@ DEBUG 2025-06-14 22:04:42,791 permissions Checking permission for user photograp
 DEBUG 2025-06-14 22:04:42,791 views Photo upload attempt by photographer1@example.com for collection 16
 DEBUG 2025-06-14 22:04:42,838 models Photo upload path: New Company\Test Project\Photos\IMG_2920copy1.jpg
 INFO 2025-06-14 22:04:42,888 views Photo uploaded by photographer1@example.com to collection 16: /media/New%20Company/Test%20Project/Photos/IMG_2920copy1.jpg
+DEBUG 2025-06-16 18:05:05,317 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-16 18:05:05,317 views Folder creation attempt by photographer1@example.com
+DEBUG 2025-06-16 18:05:05,317 serializers FolderSerializer to_internal_value input: {'name': 'Photos2', 'collection': 16}
+DEBUG 2025-06-16 18:05:05,317 serializers Set parent to None
+DEBUG 2025-06-16 18:05:05,331 serializers FolderSerializer to_internal_value output: {'name': 'Photos2', 'collection': <Collection: Updated Project Folder test rename>, 'parent': None}
+DEBUG 2025-06-16 18:05:05,331 serializers FolderSerializer validate input: {'name': 'Photos2', 'collection': <Collection: Updated Project Folder test rename>, 'parent': None}
+INFO 2025-06-16 18:05:05,401 views Folder created: Photos2 in collection 16 by photographer1@example.com
