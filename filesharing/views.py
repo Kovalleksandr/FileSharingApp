@@ -1,10 +1,11 @@
+#filesharing\views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import Collection, Photo
-from .serializers import CollectionSerializer, PhotoSerializer
-from crm.models import Company, Project  # Імпорти з crm.models
+from .models import Collection, Photo, Folder
+from .serializers import CollectionSerializer, PhotoSerializer, FolderSerializer
+from crm.models import Company, Project
 import logging
 import os
 from .permissions import IsPhotographerOrRetoucher
@@ -42,18 +43,29 @@ class ClientCollectionView(APIView):
             logger.error(f"Photo ID {request.data.get('photo_id')} not found in collection {collection_id}")
             return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class PhotoUploadView(APIView):
+class FolderCreateView(APIView):
     """
-    Ендпоінт для завантаження фотографій у колекцію.
-    Використовує MultiPartParser для обробки файлів.
-    Доступний для авторизованих користувачів (фотографів/ретушерів).
+    Ендпоінт для створення папок у колекції.
+    Доступний для авторизованих фотографів/ретушерів.
     Повертає:
-        - 201 Created при успішному завантаженні.
+        - 201 Created з даними папки.
         - 400 Bad Request при помилках валідації.
-        - 401 Unauthorized без аутентифікації.
         - 403 Forbidden без прав доступу.
         - 404 Not Found якщо колекція не знайдена.
     """
+    permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
+
+    def post(self, request):
+        logger.debug(f"Folder creation attempt by {request.user.email}")
+        serializer = FolderSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            folder = serializer.save()
+            logger.info(f"Folder created: {folder.name} in collection {folder.collection_id} by {request.user.email}")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        logger.warning(f"Folder creation failed: {serializer.errors}")
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PhotoUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [permissions.IsAuthenticated, IsPhotographerOrRetoucher]
 
@@ -70,16 +82,18 @@ class PhotoUploadView(APIView):
                 logger.error("No files provided in upload request")
                 return Response({"error": "No files provided"}, status=status.HTTP_400_BAD_REQUEST)
 
+            folder_id = request.data.get('folder_id')
             uploaded_photos = []
             for file in files:
                 data = {
                     'file': file,
                     'collection': collection.id,
+                    'folder': folder_id,  # Змінено з 'folder_id' на 'folder'
                     'uploaded_by': request.user.id
                 }
-                serializer = PhotoSerializer(data=data)
+                serializer = PhotoSerializer(data=data, context={'request': request})
                 if serializer.is_valid():
-                    photo = serializer.save()
+                    photo = serializer.save(uploaded_by=request.user)
                     uploaded_photos.append(serializer.data)
                     logger.info(f"Photo uploaded by {request.user.email} to collection {collection_id}: {photo.file.url}")
                 else:
