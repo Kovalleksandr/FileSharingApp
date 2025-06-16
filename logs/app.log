@@ -257,3 +257,10 @@ DEBUG 2025-06-16 18:05:05,317 serializers Set parent to None
 DEBUG 2025-06-16 18:05:05,331 serializers FolderSerializer to_internal_value output: {'name': 'Photos2', 'collection': <Collection: Updated Project Folder test rename>, 'parent': None}
 DEBUG 2025-06-16 18:05:05,331 serializers FolderSerializer validate input: {'name': 'Photos2', 'collection': <Collection: Updated Project Folder test rename>, 'parent': None}
 INFO 2025-06-16 18:05:05,401 views Folder created: Photos2 in collection 16 by photographer1@example.com
+DEBUG 2025-06-16 18:52:10,977 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-16 18:53:09,562 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-16 18:54:22,692 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-16 19:07:59,592 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-16 19:07:59,592 views Client link generation attempt by photographer1@example.com for collection 16
+INFO 2025-06-16 19:07:59,608 views Client link generated for collection 16 by photographer1@example.com: http://localhost:8000/api/filesharing/collections/16/client/
+INFO 2025-06-16 19:10:44,725 views Client viewed collection 16
