@@ -328,7 +328,7 @@ class FolderClientView(APIView):
 class ClientCollectionCreateView(APIView):
     """
     Ендпоінт для створення клієнтської колекції з вибраних фото у папці.
-    POST: Створює нову колекцію з вибраними фото.
+    POST: Створює нову колекцію з вибраними фото у папці "Client Photos".
     """
     def post(self, request, id):
         try:
@@ -345,10 +345,17 @@ class ClientCollectionCreateView(APIView):
                 project=folder.collection.project,
                 is_client_selection=True
             )
+            # Створюємо папку "Client Photos"
+            client_folder = Folder.objects.create(
+                name="Client Photos",
+                collection=client_collection
+            )
+            # Копіюємо вибрані фото
             for photo in selected_photos:
                 Photo.objects.create(
                     file=photo.file,
                     collection=client_collection,
+                    folder=client_folder,
                     uploaded_by=folder.collection.owner,
                     is_selected=True
                 )

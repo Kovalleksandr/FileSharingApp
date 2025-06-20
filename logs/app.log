@@ -272,3 +272,24 @@ INFO 2025-06-20 09:13:26,641 views Client viewed collection 16
 INFO 2025-06-20 09:22:47,038 views Client viewed folder 1
 INFO 2025-06-20 09:23:49,928 views Client viewed collection 16
 INFO 2025-06-20 09:25:54,245 views Photo 19 selected in folder 1
+INFO 2025-06-20 09:30:47,330 views Client collection 'на ретуш' created from folder 1
+DEBUG 2025-06-20 09:31:20,121 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 09:31:20,128 views Collection list view attempt by photographer1@example.com
+INFO 2025-06-20 09:31:20,156 views Collection list viewed by photographer1@example.com, count: 2
+INFO 2025-06-20 09:32:13,968 views Client collection 'на ретуш' created from folder 1
+DEBUG 2025-06-20 09:32:30,911 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 09:32:30,911 views Collection list view attempt by photographer1@example.com
+INFO 2025-06-20 09:32:30,928 views Collection list viewed by photographer1@example.com, count: 3
+DEBUG 2025-06-20 09:32:58,585 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 09:32:58,585 views Collection view attempt by photographer1@example.com for collection 18
+INFO 2025-06-20 09:32:58,615 views Collection 18 viewed by photographer1@example.com
+INFO 2025-06-20 09:42:43,339 views Client collection 'на ретуш 3' created from folder 1
+DEBUG 2025-06-20 09:43:01,294 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 09:43:01,294 views Collection view attempt by photographer1@example.com for collection 20
+INFO 2025-06-20 09:43:01,329 views Collection 20 viewed by photographer1@example.com
+DEBUG 2025-06-20 09:43:17,346 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 09:43:17,346 views Collection list view attempt by photographer1@example.com
+INFO 2025-06-20 09:43:17,368 views Collection list viewed by photographer1@example.com, count: 4
+DEBUG 2025-06-20 09:44:38,856 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 09:44:38,856 views Client link generation attempt by photographer1@example.com for collection 16
+INFO 2025-06-20 09:44:38,887 views Client link generated for collection 16 by photographer1@example.com: http://localhost:8000/api/filesharing/collections/16/client/
