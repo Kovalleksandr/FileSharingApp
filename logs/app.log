@@ -293,3 +293,6 @@ INFO 2025-06-20 09:43:17,368 views Collection list viewed by photographer1@examp
 DEBUG 2025-06-20 09:44:38,856 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
 DEBUG 2025-06-20 09:44:38,856 views Client link generation attempt by photographer1@example.com for collection 16
 INFO 2025-06-20 09:44:38,887 views Client link generated for collection 16 by photographer1@example.com: http://localhost:8000/api/filesharing/collections/16/client/
+DEBUG 2025-06-20 14:13:48,483 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
+DEBUG 2025-06-20 14:13:48,483 views Collection list view attempt by photographer1@example.com
+INFO 2025-06-20 14:13:48,507 views Collection list viewed by photographer1@example.com, count: 4
