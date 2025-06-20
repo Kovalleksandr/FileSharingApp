@@ -51,7 +51,7 @@ class ClientCollectionView(APIView):
             return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
         
 
-        
+
 class FolderCreateView(APIView):
     """
     Ендпоінт для створення папок у колекції.
@@ -290,3 +290,71 @@ class GenerateClientLinkView(APIView):
         except Collection.DoesNotExist:
             logger.error(f"Collection {collection_id} not found")
             return Response({"error": "Collection not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+
+
+class FolderClientView(APIView):
+    """
+    Ендпоінт для клієнтського перегляду папки та позначення фото.
+    GET: Повертає дані папки з фото.
+    POST: Позначає фото як вибране.
+    """
+    def get(self, request, id):
+        try:
+            folder = Folder.objects.get(pk=id)
+            serializer = FolderSerializer(folder)
+            logger.info(f"Client viewed folder {id}")
+            return Response(serializer.data)
+        except Folder.DoesNotExist:
+            logger.error(f"Folder {id} not found")
+            return Response({"error": "Folder not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, id):
+        try:
+            photo_id = request.data.get('photo_id')
+            if not photo_id:
+                logger.error("No photo_id provided")
+                return Response({"error": "photo_id required"}, status=status.HTTP_400_BAD_REQUEST)
+            photo = Photo.objects.get(id=photo_id, folder_id=id)
+            photo.is_selected = True
+            photo.save()
+            serializer = PhotoSerializer(photo)
+            logger.info(f"Photo {photo_id} selected in folder {id}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Photo.DoesNotExist:
+            logger.error(f"Photo ID {photo_id} not found in folder {id}")
+            return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class ClientCollectionCreateView(APIView):
+    """
+    Ендпоінт для створення клієнтської колекції з вибраних фото у папці.
+    POST: Створює нову колекцію з вибраними фото.
+    """
+    def post(self, request, id):
+        try:
+            folder = Folder.objects.get(pk=id)
+            collection_name = request.data.get('name', 'Client Selection')
+            selected_photos = Photo.objects.filter(folder=folder, is_selected=True)
+            if not selected_photos.exists():
+                logger.warning(f"No selected photos in folder {id}")
+                return Response({"error": "No selected photos"}, status=status.HTTP_400_BAD_REQUEST)
+
+            client_collection = Collection.objects.create(
+                name=collection_name,
+                owner=folder.collection.owner,
+                project=folder.collection.project,
+                is_client_selection=True
+            )
+            for photo in selected_photos:
+                Photo.objects.create(
+                    file=photo.file,
+                    collection=client_collection,
+                    uploaded_by=folder.collection.owner,
+                    is_selected=True
+                )
+            serializer = CollectionSerializer(client_collection)
+            logger.info(f"Client collection '{collection_name}' created from folder {id}")
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Folder.DoesNotExist:
+            logger.error(f"Folder {id} not found")
+            return Response({"error": "Folder not found"}, status=status.HTTP_404_NOT_FOUND)

@@ -9,6 +9,8 @@ from .views import (
     CollectionView,
     CollectionDeleteView,
     GenerateClientLinkView,
+    FolderClientView,
+    ClientCollectionCreateView
 )
 
 urlpatterns = [
@@ -22,6 +24,6 @@ urlpatterns = [
     path('collections/<int:collection_id>/delete/', CollectionDeleteView.as_view(), name='collection-delete'),
     path('collections/client-link/', GenerateClientLinkView.as_view(), name='generate-client-link'),
     # path('folders/client-link/', FolderClientLinkView.as_view(), name='folder-client-link'),  # Закоментовано через відсутність класу
-    # path('folders/<int:id>/client/', FolderClientView.as_view(), name='folder-client-view'),  # Закоментовано через відсутність класу
-    # path('folders/<int:id>/client/collection/', ClientCollectionCreateView.as_view(), name='client-collection-create'),  # Закоментовано через відсутність класу
+    path('folders/<int:id>/client/', FolderClientView.as_view(), name='folder-client-view'),
+    path('folders/<int:id>/client/collection/', ClientCollectionCreateView.as_view(), name='client-collection-create'), 
 ]

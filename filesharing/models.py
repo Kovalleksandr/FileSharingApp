@@ -25,7 +25,7 @@ class Folder(models.Model):
 
     class Meta:
         unique_together = ['name', 'collection', 'parent']
-        
+
     def __str__(self):
         return f"{self.name} in {self.collection.name}"
 
@@ -41,7 +41,7 @@ class Photo(models.Model):
     file = models.FileField(upload_to=get_upload_path)
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='photos')
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name='photos')
-    folder = models.ForeignKey(Folder, on_delete=models.SET_NULL, null=True, blank=True, related_name='photos')
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, blank=True, related_name='photo_set')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_selected = models.BooleanField(default=False, help_text="Позначено клієнтом для підбірки")
 
