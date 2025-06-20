@@ -19,13 +19,13 @@ class Collection(models.Model):
 
 class Folder(models.Model):
     name = models.CharField(max_length=255)
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name='folders')
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subfolders')
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name='folder_set')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('collection', 'name', 'parent')
-
+        unique_together = ['name', 'collection', 'parent']
+        
     def __str__(self):
         return f"{self.name} in {self.collection.name}"
 

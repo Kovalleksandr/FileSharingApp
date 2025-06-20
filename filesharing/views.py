@@ -20,12 +20,12 @@ class ClientCollectionView(APIView):
     GET доступний для всіх, POST доступний для клієнтів.
     Повертає:
         - GET: 200 OK з даними колекції, 404 якщо колекція не знайдена.
-        - POST: 200 OK при виборі фото, 404 якщо фото не знайдено.
+        - POST: 200 OK з даними оновленого фото, 404 якщо фото не знайдено.
     """
     def get(self, request, collection_id):
         try:
             collection = Collection.objects.get(pk=collection_id)
-            serializer = CollectionSerializer(collection)
+            serializer = CollectionSerializer(collection, context={'request': request})
             logger.info(f"Client viewed collection {collection_id}")
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Collection.DoesNotExist:
@@ -34,15 +34,24 @@ class ClientCollectionView(APIView):
 
     def post(self, request, collection_id):
         try:
-            photo = Photo.objects.get(id=request.data.get('photo_id'), collection_id=collection_id)
+            data = request.data
+            photo_id = data.get('photo_id')
+            if not photo_id:
+                logger.error(f"Invalid photo_id: {photo_id}")
+                return Response({"error": "Invalid photo_id"}, status=status.HTTP_400_BAD_REQUEST)
+
+            photo = Photo.objects.get(id=photo_id, collection_id=collection_id)
             photo.is_selected = True
             photo.save()
-            logger.info(f"Photo {photo.id} selected in collection {collection_id}")
-            return Response({"message": "Photo selected"}, status=status.HTTP_200_OK)
+            serializer = PhotoSerializer(photo)
+            logger.info(f"Photo {photo_id} selected in collection {collection_id}")
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Photo.DoesNotExist:
-            logger.error(f"Photo ID {request.data.get('photo_id')} not found in collection {collection_id}")
+            logger.error(f"Photo ID {photo_id} not found in collection {collection_id}")
             return Response({"error": "Photo not found"}, status=status.HTTP_404_NOT_FOUND)
+        
 
+        
 class FolderCreateView(APIView):
     """
     Ендпоінт для створення папок у колекції.

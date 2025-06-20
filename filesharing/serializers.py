@@ -7,24 +7,37 @@ import logging
 
 logger = logging.getLogger('filesharing')
 
+class PhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = ['id', 'file', 'is_selected']
+
+class FolderSerializer(serializers.ModelSerializer):
+    photos = PhotoSerializer(many=True, read_only=True, source='photo_set')
+
+    class Meta:
+        model = Folder
+        fields = ['id', 'name', 'photos']
+
 class CollectionSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all(), allow_null=True)
     parent = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all(), allow_null=True)
+    folders = FolderSerializer(many=True, read_only=True, source='folder_set')
 
     class Meta:
         model = Collection
-        fields = ['id', 'name', 'owner', 'created_at', 'project', 'parent', 'is_client_selection']
+        fields = ['id', 'name', 'owner', 'created_at', 'project', 'parent', 'is_client_selection', 'folders']
 
     def validate(self, data):
         request = self.context.get('request')
         if request and request.user:
             if data.get('project') and data['project'].company != request.user.company:
-                logger.error(f"User {request.user.email} attempted to access project {data['project'].id} from another company")
+                logger.error(f"User {request.user.email} attempted to access project {data.get('project').id} from another company")
                 raise serializers.ValidationError("You do not have access to this project.")
         return data
 
-class FolderSerializer(serializers.ModelSerializer):
+class FullFolderSerializer(serializers.ModelSerializer):
     collection = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all())
     parent = serializers.PrimaryKeyRelatedField(queryset=Folder.objects.all(), allow_null=True, required=False)
 
@@ -33,9 +46,9 @@ class FolderSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'collection', 'parent', 'created_at']
 
     def to_internal_value(self, data):
-        logger.debug(f"FolderSerializer to_internal_value input: {data}")
-        data = data.copy()  # Створюємо копію, щоб не змінювати оригінал
-        if 'parent' not in data:
+        logger.debug(f"Data to_internal_value: {data}")
+        data = data.copy()
+        if not 'parent' in data:
             data['parent'] = None
             logger.debug("Set parent to None")
         validated_data = super().to_internal_value(data)
@@ -52,7 +65,7 @@ class FolderSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("You do not have access to this collection.")
         return data
 
-class PhotoSerializer(serializers.ModelSerializer):
+class FullPhotoSerializer(serializers.ModelSerializer):
     collection = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all())
     folder = serializers.PrimaryKeyRelatedField(queryset=Folder.objects.all(), allow_null=True)
     uploaded_by = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())

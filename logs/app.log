@@ -264,3 +264,5 @@ DEBUG 2025-06-16 19:07:59,592 permissions Checking permission for user photograp
 DEBUG 2025-06-16 19:07:59,592 views Client link generation attempt by photographer1@example.com for collection 16
 INFO 2025-06-16 19:07:59,608 views Client link generated for collection 16 by photographer1@example.com: http://localhost:8000/api/filesharing/collections/16/client/
 INFO 2025-06-16 19:10:44,725 views Client viewed collection 16
+INFO 2025-06-20 08:47:03,169 views Client viewed collection 16
+INFO 2025-06-20 08:54:05,498 views Client viewed collection 16
