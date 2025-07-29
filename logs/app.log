@@ -296,3 +296,149 @@ INFO 2025-06-20 09:44:38,887 views Client link generated for collection 16 by ph
 DEBUG 2025-06-20 14:13:48,483 permissions Checking permission for user photographer1@example.com, role: photographer, authenticated: True
 DEBUG 2025-06-20 14:13:48,483 views Collection list view attempt by photographer1@example.com
 INFO 2025-06-20 14:13:48,507 views Collection list viewed by photographer1@example.com, count: 4
+DEBUG 2025-06-20 16:50:00,973 views Owner registration request: {'username': 'koval_owner', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+INFO 2025-06-20 16:50:02,026 views Owner registered successfully: koval_owner (ID: 14)
+DEBUG 2025-06-20 17:13:00,326 views_jwt Token request: username=koval_owner
+INFO 2025-06-20 17:13:01,520 views_jwt Token issued for username=koval_owner
+DEBUG 2025-06-20 18:07:40,916 views_jwt Token request: username=koval_owner
+INFO 2025-06-20 18:07:42,011 views_jwt Token issued for username=koval_owner
+DEBUG 2025-06-20 18:09:09,615 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,623 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,623 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,631 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,631 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,642 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,649 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,653 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,655 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,663 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,663 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,663 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,672 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,680 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,680 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,689 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,689 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,697 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,699 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,705 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,705 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,713 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,713 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,722 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,724 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,732 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,732 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,740 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,745 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,746 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,746 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,754 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,754 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:09:09,767 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:09:09,770 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:09:09,770 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,168 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,171 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,173 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,178 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,180 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,182 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,186 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,186 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,192 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,194 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,194 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,200 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,200 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,209 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,212 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,212 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,217 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,217 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,217 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,225 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,225 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,233 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,233 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,233 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,233 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,242 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,246 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,250 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,250 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,250 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,258 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,258 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,264 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:11:06,266 models Returning string representation for Stage: Запланована зйомка, Company: Default Company
+DEBUG 2025-06-20 18:11:06,266 models Returning string representation for Stage: Photo Editing, Company: Koval Photography
+DEBUG 2025-06-20 18:11:06,266 models Returning string representation for Stage: Етап відбору, Company: Default Company
+DEBUG 2025-06-20 18:37:20,892 views_jwt Token request: username=koval_owner
+INFO 2025-06-20 18:37:21,994 views_jwt Token issued for username=koval_owner
+DEBUG 2025-06-20 19:00:53,729 views_jwt Token request: username=koval_owner
+INFO 2025-06-20 19:00:54,849 views_jwt Token issued for username=koval_owner
+DEBUG 2025-06-20 19:01:35,522 views_jwt Token request: username=koval_owner
+INFO 2025-06-20 19:01:36,707 views_jwt Token issued for username=koval_owner
+DEBUG 2025-06-21 17:08:46,075 views Owner registration request: {'username': 'koval_owner_01', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+INFO 2025-06-21 17:08:47,238 views Owner registered successfully: koval_owner_01 (ID: 15)
+DEBUG 2025-06-21 17:11:25,940 views_jwt Token request: username=koval_owner_01
+INFO 2025-06-21 17:11:27,125 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-06-21 17:23:04,468 views Owner registration request: {'username': 'koval_owner_01', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+WARNING 2025-06-21 17:23:04,623 views Owner registration failed: {'username': [ErrorDetail(string="Користувач з таким ім'ям вже існує.", code='unique')]}
+DEBUG 2025-06-21 17:40:31,198 views Owner registration request: {'username': 'koval_owner_01', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+WARNING 2025-06-21 17:40:31,325 views Owner registration failed: {'username': [ErrorDetail(string="Користувач з таким ім'ям вже існує.", code='unique')]}
+DEBUG 2025-06-21 17:41:28,822 views Owner registration request: {'username': 'koval_owner_01', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+WARNING 2025-06-21 17:41:28,961 views Owner registration failed: {'username': [ErrorDetail(string="Користувач з таким ім'ям вже існує.", code='unique')]}
+DEBUG 2025-06-21 17:43:18,923 views Owner registration request: {'username': 'koval_owner_02', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+INFO 2025-06-21 17:43:20,028 views Owner registered successfully: koval_owner_02 (ID: 16)
+DEBUG 2025-06-21 17:43:20,832 views_jwt Token request: username=koval_owner_01
+INFO 2025-06-21 17:43:21,931 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-06-21 17:46:01,654 views Owner registration request: {'username': 'koval_owner_03', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+INFO 2025-06-21 17:46:02,823 views Owner registered successfully: koval_owner_03 (ID: 17)
+DEBUG 2025-06-21 17:46:15,025 views Owner registration request: {'username': 'koval_owner_03', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+WARNING 2025-06-21 17:46:15,149 views Owner registration failed: {'username': [ErrorDetail(string="Користувач з таким ім'ям вже існує.", code='unique')]}
+DEBUG 2025-06-21 17:46:50,454 views_jwt Token request: username=koval_owner_03
+INFO 2025-06-21 17:46:51,501 views_jwt Token issued for username=koval_owner_03
+DEBUG 2025-06-21 17:47:00,792 views_jwt Token request: username=koval_owner_03
+INFO 2025-06-21 17:47:02,005 views_jwt Token issued for username=koval_owner_03
+DEBUG 2025-06-21 17:54:42,675 views_jwt Token request: username=koval_owner_03
+INFO 2025-06-21 17:54:43,820 views_jwt Token issued for username=koval_owner_03
+DEBUG 2025-06-21 17:57:23,992 views Owner registration request: {'username': 'koval_owner_04', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+INFO 2025-06-21 17:57:25,131 views Owner registered successfully: koval_owner_04 (ID: 18)
+DEBUG 2025-06-21 17:57:42,765 views Owner registration request: {'username': 'koval_owner_04', 'password': '29062407Kisa-', 'email': 'koval.aleksandr.v@gmail.com'}
+WARNING 2025-06-21 17:57:42,890 views Owner registration failed: {'username': [ErrorDetail(string="Користувач з таким ім'ям вже існує.", code='unique')]}
+DEBUG 2025-06-21 17:58:55,144 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 17:58:56,276 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 17:59:14,043 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 17:59:15,234 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 18:00:13,524 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 18:00:14,714 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 18:00:41,056 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 18:00:42,241 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 18:01:39,757 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 18:01:40,921 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 18:02:25,495 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 18:02:26,550 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 18:05:16,665 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 18:05:17,840 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 18:06:14,690 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 18:06:15,821 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-06-21 19:06:06,484 views_jwt Token request: username=koval_owner_04
+INFO 2025-06-21 19:06:07,663 views_jwt Token issued for username=koval_owner_04
+DEBUG 2025-07-29 20:39:35,980 views_jwt Token request: username=koval_owner_01
+INFO 2025-07-29 20:39:37,136 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-07-29 20:46:00,069 views_jwt Token request: username=koval_owner_01
+INFO 2025-07-29 20:46:01,209 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-07-29 20:46:18,645 views_jwt Token request: username=koval_owner_01
+INFO 2025-07-29 20:46:19,822 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-07-29 20:47:13,611 views_jwt Token request: username=koval_owner_01
+INFO 2025-07-29 20:47:14,778 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-07-29 20:49:37,285 views_jwt Token request: username=koval_owner_01
+INFO 2025-07-29 20:49:38,480 views_jwt Token issued for username=koval_owner_01
+DEBUG 2025-07-29 20:56:53,652 views Invite request from : {}
+WARNING 2025-07-29 20:56:53,652 views Invite creation failed: {'email': [ErrorDetail(string="Це поле обов'язкове.", code='required')], 'role': [ErrorDetail(string="Це поле обов'язкове.", code='required')]}
+DEBUG 2025-07-29 20:57:45,168 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
+INFO 2025-07-29 20:57:45,266 views Invitation email sent to worker@example.com by 
+DEBUG 2025-07-29 21:15:21,078 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
+INFO 2025-07-29 21:15:21,111 views Invitation email sent to worker@example.com by 
