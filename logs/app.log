@@ -444,3 +444,9 @@ DEBUG 2025-07-29 21:15:21,078 views Invite request from : {'email': 'worker@exam
 INFO 2025-07-29 21:15:21,111 views Invitation email sent to worker@example.com by 
 DEBUG 2025-07-29 21:15:40,897 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
 INFO 2025-07-29 21:15:40,930 views Invitation email sent to worker@example.com by 
+DEBUG 2025-07-29 21:19:24,769 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
+INFO 2025-07-29 21:19:24,802 views Invitation email sent to worker@example.com by 
+DEBUG 2025-07-29 21:29:22,340 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
+WARNING 2025-07-29 21:29:22,348 views Invite creation failed: {'email': [ErrorDetail(string='invitation з таким email вже існує.', code='unique')]}
+DEBUG 2025-07-29 21:32:16,254 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
+WARNING 2025-07-29 21:32:16,259 views Invite creation failed: {'email': [ErrorDetail(string='invitation з таким email вже існує.', code='unique')]}

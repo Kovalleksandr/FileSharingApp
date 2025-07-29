@@ -1,3 +1,4 @@
+#accounts\serializers.py
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Invitation, User
@@ -68,16 +69,15 @@ class AcceptInvitationSerializer(serializers.Serializer):
         return user
 
 class InviteSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField()
-    role = serializers.ChoiceField(choices=User.ROLE_CHOICES)
+    owner = serializers.ReadOnlyField(source='owner.username')  # Повертаємо username власника
 
     class Meta:
         model = Invitation
-        fields = ['email', 'role']
+        fields = ['id', 'email', 'role', 'uuid', 'owner']
+        read_only_fields = ['id', 'uuid', 'owner']
 
     def validate(self, data):
+        # Перевіряємо, чи email не зареєстрований у User
         if User.objects.filter(email=data['email']).exists():
             raise serializers.ValidationError("This email is already registered.")
-        # Видаляємо старе запрошення, якщо воно існує
-        Invitation.objects.filter(email=data['email']).delete()
         return data

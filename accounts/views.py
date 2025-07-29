@@ -30,7 +30,6 @@ class RegisterOwnerView(APIView):
         logger.warning(f"Owner registration failed: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Решта твого коду
 class AcceptInvitationView(APIView):
     def post(self, request):
         logger.debug(f"Received registration request: {request.data}")
@@ -107,7 +106,7 @@ class InviteUserView(APIView):
                 logger.error(f"Failed to send email to {invitation.email}: {str(e)}")
                 return Response({"error": "Failed to send invitation email"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
-            return Response({"message": "Invitation sent successfully"}, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)  # Змінено на serializer.data
         logger.warning(f"Invite creation failed: {serializer.errors}")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -25,7 +25,7 @@ class User(AbstractUser):
 
 class Invitation(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()  # Прибрано unique=True
     role = models.CharField(max_length=20, choices=User.ROLE_CHOICES)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="invitations")
 
