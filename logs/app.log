@@ -442,3 +442,5 @@ DEBUG 2025-07-29 20:57:45,168 views Invite request from : {'email': 'worker@exam
 INFO 2025-07-29 20:57:45,266 views Invitation email sent to worker@example.com by 
 DEBUG 2025-07-29 21:15:21,078 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
 INFO 2025-07-29 21:15:21,111 views Invitation email sent to worker@example.com by 
+DEBUG 2025-07-29 21:15:40,897 views Invite request from : {'email': 'worker@example.com', 'role': 'photographer'}
+INFO 2025-07-29 21:15:40,930 views Invitation email sent to worker@example.com by 
